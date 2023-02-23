@@ -8,6 +8,35 @@
     <title>Etch a Sketch</title>
 </head>
 <body>
-    
+    <div class="button-container">
+        <button id="userChoice" onclick="removeBase()"># of squares in a row</button>
+    </div>
+    <div id="container">
+    </div>
+    <script>
+        let base_number = 16;
+        const container = document.querySelector('#container');
+        function loadBase() {
+            str = ' 1fr'
+            let userChoice = () => base_number = prompt('Set number of squares per side: ')
+            for (let i = 1; i <= base_number; i++) {
+                    for (let n = 0; n <= base_number; n++) {
+                        container.appendChild(document.createElement(`div`, `div`));
+                }
+            }
+            container.style.gridTemplateColumns = str.repeat(base_number);
+        }
+        function removeBase () {
+            divs.forEach(DIV => DIV.remove()
+            )}
+        loadBase();
+        let divs = document.querySelectorAll('#container > div');
+        divs.forEach(DIV => {
+            console.log('xd')
+            DIV.addEventListener('mouseover', function(){
+                DIV.classList.add('active')
+            })
+            })
+    </script>
 </body>
 </html>
