@@ -14,22 +14,22 @@
             <div class="options-container">
                 <div class="color-pick">
                     <label for="colorChoice">Choose your color</label>
-                    <input type="color" id="colorChoice" value="#000">
+                    <input type="color" id="colorChoice" >
                 </div>
-                <button id="pickedColor">Color Mode</button>
-                <button id="colorRainbow">Rainbow Mode</button>
-                <button id="erase">Erase</button>
-                <button id="userChoice" onclick="button()">Clear</button>
+                <button id="colorMode" onclick="colorMode()">Color Mode</button>
+                <button id="rainbowMode" onclick="rainbowMode()" >Rainbow Mode</button>
+                <button id="erase" onclick="Erasebtn()">Erase</button>
+                <button id="reset" onclick="resetGrid()">Clear</button>
                 <div class="boxLength">
-                    <label for="size">Box size</label>
+                    <label for="Boxsize" id="sliderLabel">Box size: 50x50</label>
                     <input
                         type="range"
-                        name="size"
-                        id="size"
+                        name="Boxsize"
+                        id="slider"
                         min="5"
                         max="100"
                         step="1"
-                        value="16"/>
+                        />
                 </div>
             </div>
             <div id="container">
@@ -37,46 +37,92 @@
         </div>
     </div>
     <script>
-        let base_number = 16;
-        const maxLength = 100;
+        let size = document.querySelector('#sliderLabel');
+        let color = document.querySelector('#colorChoice');
         const container = document.querySelector('#container');
-        function loadBase() {
-            str = ' 1fr'
-            for (let i = 1; i <= base_number; i++) {
-                    for (let n = 1; n <= base_number; n++) {
-                        container.appendChild(document.createElement(`div`, `div`));
-                }}
-            container.style.gridTemplateColumns = str.repeat(base_number);
-        }
-        loadBase();
-        addEars();
-        function addEars() {
+        const Slider = document.getElementById('slider');
+        const erasebtn = document.querySelector('#erase');
+        const colorbtn = document.querySelector('#colorMode');
+        const rainbowbtn = document.querySelector('#rainbowMode');
+        function drawGrid() {
+            container.style.gridTemplateColumns = `repeat(${+Slider.value}, 1fr)`
+            container.style.gridTemplateRows = `repeat(${+Slider.value}, 1fr)`
+            for (let i = 1; i <= Slider.value * Slider.value; i++) {
+                        container.appendChild(document.createElement(`div`, `div`));   
+        }}
+        function gridAddEars() {
             let divs = document.querySelectorAll('#container > div');
-                divs.forEach(DIV => {
-                    DIV.addEventListener('mouseover', function(){
-                        DIV.classList.add('active')
-            })})}
-        function cleanDivs () {
+            divs.forEach(DIV => {
+                DIV.addEventListener('mouseover', function(){
+                    if (isErasebtnActive() == false && isRainbtnActive() == false){
+                    DIV.setAttribute('id', 'active');
+                    DIV.style.backgroundColor = color.value;
+                } else if (isRainbtnActive() == true && isErasebtnActive() == false){
+                    DIV.setAttribute('id', 'active');
+                    red = Red();
+                    green = Green();
+                    blue = Blue();
+                    DIV.style.backgroundColor = 'rgb(' + [red, green, blue].join(',') + ')';
+                } else {
+                    DIV.removeAttribute('id');
+                    DIV.style.backgroundColor = 'white';
+                }})})}
+        function resetGrid() {
             while (container.firstChild) {
                 container.removeChild(container.lastChild);
-            }}
-        function checkInput(input) {
-            if (input > 100 || input < 1 || isNaN(input)) {
-                userChoice();
+            }
+            drawGrid();
+            gridAddEars();
+        }
+        function isErasebtnActive(){
+            if (erasebtn.getAttribute('class') == 'true'){
+                return true
             } else {
-                return
-            }} 
-        function userChoice() {
-            choice = parseInt(prompt(`Set number of squares per side (Maximum ${maxLength}): `));
-            checkInput(choice);
-            return choice
-            }
-            function button () {
-                base_number = userChoice();
-                cleanDivs();
-                loadBase();
-                addEars();
-            }
+                return false
+        }}
+        function isRainbtnActive(){
+            if (rainbowbtn.getAttribute('class') == 'true'){
+                return true
+            } else {
+                return false
+        }}
+        function Erasebtn(){
+            colorbtn.removeAttribute('class');
+            rainbowbtn.removeAttribute('class');
+            erasebtn.setAttribute('class', 'true');
+        }
+        function colorMode(){
+            erasebtn.removeAttribute('class');
+            rainbowbtn.removeAttribute('class');
+            colorbtn.setAttribute('class', 'true');
+        }
+        function sliderEars(){
+            Slider.addEventListener('mousemove', function(){
+            size.textContent = `Box size: ${Slider.value}x${Slider.value}`;
+            })}
+        function rainbowMode(){
+            erasebtn.removeAttribute('class');
+            colorbtn.removeAttribute('class');
+            rainbowbtn.setAttribute('class', 'true');
+        }
+        let Red = () => Math.floor(Math.random() * 255); 
+        let Blue = () => Math.floor(Math.random() * 255);
+        let Green = () => Math.floor(Math.random() * 255); 
+
+
+       
+
+
+
+
+
+
+
+
+        
+        drawGrid();
+        gridAddEars();
+        sliderEars();
     </script>
 </body>
 </html>

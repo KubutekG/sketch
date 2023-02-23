@@ -73,24 +73,30 @@ button {
     width: 140px;
     height: 50px;
     border-radius: 10px;
+    transition: 0.3s;
     background-color: rgba(255, 0, 0, 0.6);
     color: white;
     cursor: pointer;
     border: none;
 }
 button:hover {
+    width: 160px;
+    height: 55px;
+    background-color: rgba(125, 0, 0, 0.8);
+}
+button:focus {
     background-color: rgba(125, 0, 0, 0.8);
 }
 #container {
     display: grid;
     width: 700px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     height: 700px;
 }
 #container div {
     background-color: white;
 }
-#container .active {
+#container #active {
     background-color: black;
 }
 input[type=range] {
