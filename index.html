@@ -8,10 +8,33 @@
     <title>Etch a Sketch</title>
 </head>
 <body>
-    <div class="button-container">
-        <button id="userChoice" onclick="button()"># of squares in a row</button>
-    </div>
-    <div id="container">
+    <div class="flex-container">
+        <p>Etch-a-Sketch</p>
+        <div class="wrapper">
+            <div class="options-container">
+                <div class="color-pick">
+                    <label for="colorChoice">Choose your color</label>
+                    <input type="color" id="colorChoice" value="#000">
+                </div>
+                <button id="pickedColor">Color Mode</button>
+                <button id="colorRainbow">Rainbow Mode</button>
+                <button id="erase">Erase</button>
+                <button id="userChoice" onclick="button()">Clear</button>
+                <div class="boxLength">
+                    <label for="size">Box size</label>
+                    <input
+                        type="range"
+                        name="size"
+                        id="size"
+                        min="5"
+                        max="100"
+                        step="1"
+                        value="16"/>
+                </div>
+            </div>
+            <div id="container">
+            </div>
+        </div>
     </div>
     <script>
         let base_number = 16;
