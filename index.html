@@ -37,7 +37,17 @@
             while (container.firstChild) {
                 container.removeChild(container.lastChild);
             }}
-        let userChoice = () => prompt(`Set number of squares per side (Maximum ${maxLength}): `);
+        function checkInput(input) {
+            if (input > 100 || input < 1 || isNaN(input)) {
+                userChoice();
+            } else {
+                return
+            }} 
+        function userChoice() {
+            choice = parseInt(prompt(`Set number of squares per side (Maximum ${maxLength}): `));
+            checkInput(choice);
+            return choice
+            }
             function button () {
                 base_number = userChoice();
                 cleanDivs();
